@@ -9,6 +9,9 @@
         body {
             padding: 20px;
         }
+        h1 {
+            color: green;
+        }
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -30,6 +33,12 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+    <h1>You are logged in as {{ username }}</h1>
     <h1>Book Recommendations</h1>
     <form hx-post="/submit" hx-swap="beforeend" hx-target="#new-book" class="mb-3">
         <input type="text" placeholder="Book Title" name="title" class="form-control mb-3" />
@@ -45,10 +54,10 @@
           </tr>
         </thead>
         <tbody id="new-book" hx-target="closest tr" hx-swap="outerHTML swap:0.5s"> 
-            {%for book in books%}
+            {% for book in books %}
             <tr>
-                <td>{{book.Book.title}}</td>
-                <td>{{book.Author.name}}</td>
+                <td>{{ book.Book.title }}</td>
+                <td>{{ book.Author.name }}</td>
                 <td>
                     <button class="btn btn-primary" 
                         hx-get="/get-edit-form/{{book.Book.book_id}}">
@@ -59,7 +68,7 @@
                     <button hx-delete="/delete/{{book.Book.book_id}}" class="btn btn-primary">Delete</button>
                 </td>
             </tr>
-            {%endfor%}
+            {% endfor %}
         </tbody>
     </table>
 </body>
